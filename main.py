@@ -28,22 +28,26 @@ curplayer = player()
 # Dict of ANSI escape codes for 24bit color
 # https://stackoverflow.com/questions/4842424/list-of-ansi-color-escape-sequences more info
 ANSI = { 
-    'brown' : '\033[38;2;189;93;58m',
+    'fgbrown' : '\033[38;2;189;93;58m',
+    'fgreset' : '\033[39m',
+    'fggrey' : '\033[38;2;131;131;131m',
+    'fgblue' : '\033[38;2;6;2;112m',
+    'fggreen' : '\033[38;2;43;150;0m'
 
 
 }
 
 def menu():
     os.system('cls') # 'cls' instead of 'clear' for windows terminal 'clear' is for linux(probally mac also).
-    print(ANSI['fgred'] + "_________________________________________"+ ANSI["reset"]) # "" instead of '' for str because open ' in str.
+    print(ANSI['fgbrown'] + "_________________________________________"+ ANSI["fgreset"]) # "" instead of '' for str because open ' in str.
     print(" _____ _            ____       _   _     ")
     print("|_   _| |__   ___  |  _ \ __ _| |_| |__  ")
     print("  | | | '_ \ / _ \ | |_) / _` | __| '_ \ ") 
     print("  | | | | | |  __/ |  __/ (_| | |_| | | |")
     print("  |_| |_| |_|\___| |_|   \__,_|\__|_| |_|")
-    print(ANSI['fgred'] + "_________________________________________")
-    print("            " + ANSI["fgcyan"] + "- Enter 1 to start -" + ANSI["reset"]+ "            ")
-    print("            " + ANSI["fgcyan"] + "- Enter 2 to quit -" + ANSI["reset"]+ "            ")
+    print(ANSI['fgbrown'] + "_________________________________________")
+    print("            " + ANSI["fgbrown"] + "- Enter 1 to start -" + ANSI["fgbrown"]+ "            ")
+    print("            " + ANSI["fgbrown"] + "- Enter 2 to quit -" + ANSI["fgbrown"]+ "            ")
     menu_options() # Maybe should del menu_options() func and add code to menu() func.
 
 def menu_options():
@@ -94,18 +98,35 @@ def worldgen():
     subarr = []
     for i in range(size):
         for  n in range(size):
-            subarr.append(random.randint(0,4))
+            subarr.append(random.randint(0,3))
         arr.append(subarr)
         subarr = []
-    print(arr)
+    #1print(arr)
 
 
-hill = '\033[38;2;189;93;58m'+'∩'
-        
+    hill = ANSI['fgbrown']+ '∩' + ANSI['fgreset']
+    mountain = ANSI['fggrey'] + '▲' + ANSI['fgreset']
+    water = ANSI['fgblue']+ '≈' + ANSI['fgreset']
+    plains = ANSI['fggreen']+ '≡' + ANSI['fgreset']
+    town =  ANSI['fgbrown']+ '♦' + ANSI['fgreset']
+
+    mapkey = [hill, mountain, plains, water]
+    print(mapkey)
+    for i in arr:
+        #print(i)
+        mapstr = ''
+        for n in i:
+            #print(n)
+            mapstr += mapkey[n]
+        print(mapstr)
+
     
+
+            
+        
 
 
 # call funcs
 #menu()
-#location()
-print(hill)
+#print(mountain)
+worldgen()
