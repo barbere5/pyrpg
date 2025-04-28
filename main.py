@@ -25,18 +25,10 @@ class player:
 curplayer = player()
 
 
-# Dict of octal escape code ANSI color sequences for terminal effects.
-# 3 parameters allowed after escape code seperated by ';' link for more info/tables: https://stackoverflow.com/questions/4842424/list-of-ansi-color-escape-sequences
+# Dict of ANSI escape codes for 24bit color
+# https://stackoverflow.com/questions/4842424/list-of-ansi-color-escape-sequences more info
 ANSI = { 
-    'fggreen': '\033[32;1m', # 1/bold or other font effect must be used else text remains default, why? 
-    'reset': '\033[0;0;1m',
-    'fgwhite': '\033[37;1m',
-    'fggrey': '\033[90;1m',
-    'fgred': '\033[31;1m',
-    'fgcyan': '\033[96;1m',
-    'bgred': '\033[41;1m',
-    'bggrey': '\033[100;1m',
-    
+    'brown' : '\033[38;2;189;93;58m',
 
 
 }
@@ -66,7 +58,7 @@ def menu_options():
         print('.', end='', flush=True)
         time.sleep(1)
         os.system('cls')
-        createchar()
+        worldgen()
     
     elif choice == '2':
         print('Exiting game', end='')
@@ -80,101 +72,40 @@ def menu_options():
         os.system('cls')
         sys.exit()
     else:
-        print("input not an option.")
+        print("Input not an option.")
         menu_options() 
         
 def createchar():
     pass
 
-#### Map & movement ####
-ZONENAME = ''
-DESC = '1'
-EXAMINE = '2'
-EXPLORED = False
-UP = 'w', 'north'
-DOWN = 's','south'
-LEFT = 'a', 'west'
-RIGHT = 'd','east'
+def worldgen():
+    print('How big do you want your world to be?')
+    print('1) Small[8x8] 2) Medium[16x16] 3) Large[32x32]')
+    choice = int(input('-> '))
+    if choice > 3 or choice < 1:
+        os.system('cls')
+        print("Input not an option.")
+        worldgen()
+    else:
+        size = 8 * choice
+    
+    # generate a list of sublists 
+    arr = []
+    subarr = []
+    for i in range(size):
+        for  n in range(size):
+            subarr.append(random.randint(0,4))
+        arr.append(subarr)
+        subarr = []
+    print(arr)
 
-# Take this out most likley.gfndfgn
-explored_loc = {'a1': False, 'a2': False,'a3': False, 'a4': False,
-                'b1': False, 'b2': False,'b3': False, 'b4': False,
-                'c1': False, 'c2': False,'c3': False, 'c4': False,
-                'd1': False, 'd2': False,'d3': False, 'd4': False,
-                }
 
-# Not finished
-zonemap = {
-    'a1':{
-        ZONENAME : '',
-        DESC : '1',
-        EXAMINE : '2',
-        EXPLORED : False,
-        UP : ('w', 'north'), # If issue w tuple values del one and remove tuple
-        DOWN : ('s','south'),
-        LEFT :('a', 'west'),
-        RIGHT :('d','east')
-    },
-    'a2':{
-        ZONENAME : '',
-        DESC : '1',
-        EXAMINE : '2',
-        EXPLORED : False,
-        UP : ('w', 'north'),
-        DOWN : ('s','south'),
-        LEFT :('a', 'west'),
-        RIGHT :('d','east')
-    },
-    'a3':{
-        ZONENAME : '',
-        DESC : '1',
-        EXAMINE : '2',
-        EXPLORED : False,
-        UP : ('w', 'north'),
-        DOWN : ('s','south'),
-        LEFT :('a', 'west'),
-        RIGHT :('d','east')
-    },
-    'a4':{
-        ZONENAME : '',
-        DESC : '1',
-        EXAMINE : '2',
-        EXPLORED : False,
-        UP : ('w', 'north'),
-        DOWN : ('s','south'),
-        LEFT :('a', 'west'),
-        RIGHT :('d','east')
-    },
-    'b1':{
-        ZONENAME : '',
-        DESC : '1',
-        EXAMINE : '2',
-        EXPLORED : False,
-        UP : ('w', 'north'),
-        DOWN : ('s','south'),
-        LEFT :('a', 'west'),
-        RIGHT :('d','east')
-    },
-    'b2':{
-        ZONENAME : 'base',
-        DESC : 'This is the Start',
-        EXAMINE : 'Everything is as you remember.',
-        EXPLORED : False,
-        UP : 'a2',
-        DOWN : 'c2',
-        LEFT : 'b1',
-        RIGHT : 'b3'
-    },
-}
-
-# Game inter
-def location():
-    print('\n' + ('#' * (4 + len(zonemap[curplayer.pos][ZONENAME]))))
-    print('# ' + zonemap[curplayer.pos][ZONENAME] + ' #')
-    #print('# ' + zonemap[curplayer.pos][DESC] + ' #')
-    print(('#' * (4 + len(zonemap[curplayer.pos][ZONENAME]))))
+hill = '\033[38;2;189;93;58m'+'∩'
+        
+    
 
 
 # call funcs
-menu()
+#menu()
 #location()
+print(hill)
