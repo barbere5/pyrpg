@@ -57,7 +57,7 @@ def menu_options():
         print('Starting game', end='')
         print('.', end='', flush=True)
         time.sleep(1)
-        print('.', end='', flush=True)
+        print('.', end='', flush=True)  
         time.sleep(1)
         print('.', end='', flush=True)
         time.sleep(1)
@@ -81,7 +81,7 @@ def menu_options():
         
 def createchar():
     pass
-
+ 
 def worldgen():
     print('How big do you want your world to be?')
     print('1) Small[8x8] 2) Medium[16x16] 3) Large[32x32]')
@@ -111,7 +111,6 @@ def worldgen():
     town =  ANSI['fgbrown']+ '♦' + ANSI['fgreset']
 
     mapkey = [hill, mountain, plains, water]
-    print(mapkey)
     for i in arr:
         #print(i)
         mapstr = ''
@@ -119,6 +118,9 @@ def worldgen():
             #print(n)
             mapstr += mapkey[n]
         print(mapstr)
+    print("World key: water= hill= mountain= plains= ln/.;lm/")
+    print("Keep world?")
+    input('-> ')
 
     
 
@@ -127,6 +129,7 @@ def worldgen():
 
 
 # call funcs
-#menu()
+menu()
 #print(mountain)
-worldgen()
+#worldgen()
+
