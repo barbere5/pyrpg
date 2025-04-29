@@ -24,6 +24,10 @@ class player:
 
 curplayer = player()
 
+# func for centering text
+def fspacing(s):
+    return " " * (int((41 - len(s)) / 2)) # spacing to center species name
+
 
 # Dict of ANSI escape codes for 24bit color
 # https://stackoverflow.com/questions/4842424/list-of-ansi-color-escape-sequences more info
@@ -31,12 +35,9 @@ ANSI = {
     'fgbrown' : '\033[38;2;189;93;58m',
     'fgreset' : '\033[39m',
     'fggrey' : '\033[38;2;131;131;131m',
-    'fgblue' : '\033[38;2;6;2;112m',
+    'fgblue' : '\033[38;2;0;0;255m',
     'fggreen' : '\033[38;2;0;255;0m',
     'fgred' : '\033[38;2;255;0;0m'
-
-
-
 }
 
 def menu():
@@ -65,7 +66,7 @@ def menu_options():
         print('.', end='', flush=True)
         time.sleep(1)
         os.system('cls')
-        worldgen()
+        charmenu()
     
     elif choice == '2':
         print('Exiting game', end='')
@@ -82,9 +83,74 @@ def menu_options():
         print("Input not an option.")
         menu_options() 
         
-def createchar():
-    pass
- 
+def charmenu():
+    # Dictonary for species info 
+    speciesdic = {
+        1: {'species': 'human', 'description': 'Adaptable and well-rounded.', 'stats': { 'hp' : 10, 'sp' : 10, 'mp' : 10
+
+        },},
+        2: {'species': 'elf', 'description': 'Adaptable and well-rounded.', 'stats': { 'hp' : 7, 'sp' : 7, 'mp' : 15
+
+        },},
+        3: {'species': 'dwarf', 'description': 'Adaptable and well-rounded.', 'stats': { 'hp' : 15, 'sp' : 7, 'mp' : 7
+
+        },}
+    }
+
+    def religiongen():
+        descript = ['adorable', 'adventurous', 'aggressive', 'Formless', 'alert', 'alive', 'amused', 'angry',
+    'annoyed', 'annoying', 'anxious', 'arrogant', 'ashamed', 'Rotting', 'awful',
+    'bad', 'Blind', 'black', 'bloody', 'blue', 'blue-eyed', 'blushing',
+    'bored', 'brave', 'breakable', 'bright', 'busy', 'calm', 'careful', 'cautious',
+    'charming', 'cheerful', 'Corrupt', 'clear', 'clever', 'cloudy', 'clumsy', 'colorful', 'combative',
+    'comfortable', 'concerned', 'condemned', 'confused', 'Bloody', 'courageous', 'crazy',
+    'Dead', 'cruel', 'curious', 'dangerous', 'dark', 'dead', 'defeated',
+    'defiant', 'delightful', 'depressed', 'determined', 'different', 'difficult', 'disgusted',
+    'Bloody', 'disturbed', 'dizzy', 'doubtful', 'dull', 'baleful', 'cursed', 'Skinless']
+        noun = ['Egg', 'Beast', 'Star', 'Sun', 'Moon', 'Mountain' ]
+        rname = "The " + descript[random.randint(0, (len(descript)-1))] + " " + noun[random.randint(0, (len(noun)-1))]
+
+    print(ANSI['fgbrown'] + " +---------------------------------------+" + ANSI['fgreset'])
+    print("           -Character Creation-")
+    print(ANSI['fgbrown'] + " +---------------------------------------+" + ANSI['fgreset'])
+    print(' Select a species for more info:')
+    print(ANSI['fggreen']+ " 1)" + ANSI['fgreset'] + " Human")
+    print(ANSI['fggreen']+ " 2)" + ANSI['fgreset'] + " Elf")
+    print(ANSI['fggreen']+ " 3)" + ANSI['fgreset'] + " Dwarf")
+    
+    # Selected Species
+    choice = int(input('-> '))
+
+    if choice not in speciesdic:
+        os.system('cls')
+        print('Not an option, Try again.')
+        charmenu() #recurse
+    else:
+        spacing = " " * int((41 - len(speciesdic[choice]['species'])) / 2) # spacing to center species name
+        os.system('cls')
+        print(ANSI['fgbrown'] + " +---------------------------------------+" + ANSI['fgreset'])
+        print( spacing + "-" + speciesdic[choice]['species'] + "-" + spacing)
+        print(ANSI['fgbrown'] + " +---------------------------------------+" + ANSI['fgreset'])
+        print(fspacing(speciesdic[choice]['description']) + " " + speciesdic[choice]['description'] + ' ' + fspacing(speciesdic[choice]['description']))
+
+        print(ANSI['fgred'] + " Health: " + ANSI['fgreset'] + str(speciesdic[choice]['stats']['hp']))
+        print(ANSI['fggreen'] + " Stamina: " + ANSI['fgreset'] + str(speciesdic[choice]['stats']['sp']))
+        print(ANSI['fgblue'] + " Mana: " + ANSI['fgreset'] + str(speciesdic[choice]['stats']['mp']))
+        print(fspacing(" Select species?") + " Select species?" + fspacing(" Select species?") )
+        print(' 1) Yes 2) No')
+
+        # It works don't touch :o
+        choice = input('-> ')
+        while choice != '1' and choice != '2':
+            print('Not an option, Try again.')
+            choice = input('-> ')
+        if choice == '1':
+            pass
+        if choice == '2':
+            os.system('cls')
+            print("returning to selection menu.")
+            charmenu() #recurse
+
 def worldgen():
     print('How big do you want your world to be?')
     print('1) Small[8x8] 2) Medium[16x16] 3) Large[32x32]')
@@ -125,10 +191,6 @@ def worldgen():
     print("Keep world?")
     input('-> ')
 
-    
-
-            
-        
 
 
 # call funcs
