@@ -66,7 +66,7 @@ def menu_options():
         print('.', end='', flush=True)
         time.sleep(1)
         os.system('cls')
-        charmenu()
+        speciesmenu()
     
     elif choice == '2':
         print('Exiting game', end='')
@@ -83,7 +83,7 @@ def menu_options():
         print("Input not an option.")
         menu_options() 
         
-def charmenu():
+def speciesmenu():
     # Dictonary for species info 
     speciesdic = {
         1: {'species': 'human', 'description': 'Adaptable and well-rounded.', 'stats': { 'hp' : 10, 'sp' : 10, 'mp' : 10
@@ -96,19 +96,6 @@ def charmenu():
 
         },}
     }
-
-    def religiongen():
-        descript = ['adorable', 'adventurous', 'aggressive', 'Formless', 'alert', 'alive', 'amused', 'angry',
-    'annoyed', 'annoying', 'anxious', 'arrogant', 'ashamed', 'Rotting', 'awful',
-    'bad', 'Blind', 'black', 'bloody', 'blue', 'blue-eyed', 'blushing',
-    'bored', 'brave', 'breakable', 'bright', 'busy', 'calm', 'careful', 'cautious',
-    'charming', 'cheerful', 'Corrupt', 'clear', 'clever', 'cloudy', 'clumsy', 'colorful', 'combative',
-    'comfortable', 'concerned', 'condemned', 'confused', 'Bloody', 'courageous', 'crazy',
-    'Dead', 'cruel', 'curious', 'dangerous', 'dark', 'dead', 'defeated',
-    'defiant', 'delightful', 'depressed', 'determined', 'different', 'difficult', 'disgusted',
-    'Bloody', 'disturbed', 'dizzy', 'doubtful', 'dull', 'baleful', 'cursed', 'Skinless']
-        noun = ['Egg', 'Beast', 'Star', 'Sun', 'Moon', 'Mountain' ]
-        rname = "The " + descript[random.randint(0, (len(descript)-1))] + " " + noun[random.randint(0, (len(noun)-1))]
 
     print(ANSI['fgbrown'] + " +---------------------------------------+" + ANSI['fgreset'])
     print("           -Character Creation-")
@@ -124,7 +111,7 @@ def charmenu():
     if choice not in speciesdic:
         os.system('cls')
         print('Not an option, Try again.')
-        charmenu() #recurse
+        speciesmenu() #recurse
     else:
         spacing = " " * int((41 - len(speciesdic[choice]['species'])) / 2) # spacing to center species name
         os.system('cls')
@@ -149,7 +136,31 @@ def charmenu():
         if choice == '2':
             os.system('cls')
             print("returning to selection menu.")
-            charmenu() #recurse
+            speciesmenu() #recurse
+
+
+def religionmenu():
+        
+        descript = ['adorable', 'adventurous', 'aggressive', 'Formless', 'alert', 'alive', 'amused', 'angry',
+    'annoyed', 'annoying', 'anxious', 'arrogant', 'ashamed', 'Rotting', 'awful',
+    'bad', 'Blind', 'black', 'bloody', 'blue', 'blue-eyed', 'blushing',
+    'bored', 'brave', 'breakable', 'bright', 'busy', 'calm', 'careful', 'cautious',
+    'charming', 'cheerful', 'Corrupt', 'clear', 'clever', 'cloudy', 'clumsy', 'colorful', 'combative',
+    'comfortable', 'concerned', 'condemned', 'confused', 'Bloody', 'courageous', 'crazy',
+    'Dead', 'cruel', 'curious', 'dangerous', 'dark', 'dead', 'defeated',
+    'defiant', 'delightful', 'depressed', 'determined', 'different', 'difficult', 'disgusted',
+    'Bloody', 'disturbed', 'dizzy', 'doubtful', 'dull', 'baleful', 'cursed', 'Skinless']
+        
+        noun = ['Egg', 'Beast', 'Star', 'Sun', 'Moon', 'Mountain' ]\
+        
+        religion_name = "The " + descript[random.randint(0, (len(descript)-1))] + " " + noun[random.randint(0, (len(noun)-1))]
+        
+        shrine_features = ['barbed', 'ominous', '']
+        shrine_materials = ["copper", "wood", "iron", "black", "white", "marble", "stone", "blue", "azure", "glass", "dirt"]
+        shrine_forms = ["obelisk", "menhir", "monolith", "dolmen"]
+        shrine_description = "A " + shrine_materials[random.randint(0, len(shrine_materials) - 1)] + ' ' + shrine_forms[random.randint(0, len(shrine_forms) - 1)]
+        print(shrine_description)
+
 
 def worldgen():
     print('How big do you want your world to be?')
@@ -194,7 +205,7 @@ def worldgen():
 
 
 # call funcs
-menu()
+religionmenu()
 #print(mountain)
 #worldgen()
 
