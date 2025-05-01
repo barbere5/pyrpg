@@ -12,6 +12,7 @@ class player:
         self.name = ''
         self.species = ''
         self.role = ''
+        self.religion = ''
 
         self.hp = 0 # Health
         self.sp = 0 # stamina
@@ -89,10 +90,10 @@ def speciesmenu():
         1: {'species': 'human', 'description': 'Adaptable and well-rounded.', 'stats': { 'hp' : 10, 'sp' : 10, 'mp' : 10
 
         },},
-        2: {'species': 'elf', 'description': 'Adaptable and well-rounded.', 'stats': { 'hp' : 7, 'sp' : 7, 'mp' : 15
+        2: {'species': 'elf', 'description': 'Magically gifted.', 'stats': { 'hp' : 7, 'sp' : 7, 'mp' : 15
 
         },},
-        3: {'species': 'dwarf', 'description': 'Adaptable and well-rounded.', 'stats': { 'hp' : 15, 'sp' : 7, 'mp' : 7
+        3: {'species': 'dwarf', 'description': 'Gifted with a strong constitution.', 'stats': { 'hp' : 15, 'sp' : 7, 'mp' : 7
 
         },}
     }
@@ -127,13 +128,27 @@ def speciesmenu():
         print(' 1) Yes 2) No')
 
         # It works don't touch :o
-        choice = input('-> ')
-        while choice != '1' and choice != '2':
+        confirm = input('-> ')
+        while confirm != '1' and confirm != '2':
             print('Not an option, Try again.')
-            choice = input('-> ')
-        if choice == '1':
-            pass
-        if choice == '2':
+            confirm = input('-> ') # needs to be fixed to solve edgecase but it works well enough rn.
+        if confirm == '1':
+            curplayer.species = speciesdic[choice]['species']
+            curplayer.hp = speciesdic[choice]['stats']['hp']
+            curplayer.sp = speciesdic[choice]['stats']['sp']
+            curplayer.mp = speciesdic[choice]['stats']['mp']
+            os.system('cls')
+            print( speciesdic[choice]['species'] + ' Selected', end='')
+            time.sleep(0.5)
+            print('.', end='', flush=True)
+            time.sleep(0.5)
+            print('.', end='', flush=True)
+            time.sleep(0.5)
+            print('.', end='', flush=True)
+            time.sleep(0.5)
+            religionmenu()
+
+        if confirm == '2':
             os.system('cls')
             print("returning to selection menu.")
             speciesmenu() #recurse
@@ -151,15 +166,43 @@ def religionmenu():
     'defiant', 'delightful', 'depressed', 'determined', 'different', 'difficult', 'disgusted',
     'Bloody', 'disturbed', 'dizzy', 'doubtful', 'dull', 'baleful', 'cursed', 'Skinless']
         
-        noun = ['Egg', 'Beast', 'Star', 'Sun', 'Moon', 'Mountain' ]\
         
-        religion_name = "The " + descript[random.randint(0, (len(descript)-1))] + " " + noun[random.randint(0, (len(noun)-1))]
         
+        noun = ['Egg', 'Beast', 'Star', 'Sun', 'Moon', 'Mountain' ]
         shrine_features = ['barbed', 'ominous', '']
         shrine_materials = ["copper", "wood", "iron", "black", "white", "marble", "stone", "blue", "azure", "glass", "dirt"]
         shrine_forms = ["obelisk", "menhir", "monolith", "dolmen"]
-        shrine_description = "A " + shrine_materials[random.randint(0, len(shrine_materials) - 1)] + ' ' + shrine_forms[random.randint(0, len(shrine_forms) - 1)]
-        print(shrine_description)
+
+        religion_names = []
+        shrine_list = []
+        while len(religion_names) <= 3:
+            religion_name = "The " + descript[random.randint(0, (len(descript)-1))] + " " + noun[random.randint(0, (len(noun)-1))]
+            religion_names.append(religion_name)
+            shrine_description = "A " + shrine_materials[random.randint(0, len(shrine_materials) - 1)] + ' ' + shrine_forms[random.randint(0, len(shrine_forms) - 1)]
+            shrine_list.append(shrine_description)
+
+        def rmenu2():    
+            os.system('cls')
+            print(ANSI['fgbrown'] + " +---------------------------------------+" + ANSI['fgreset'])
+            print("           -religion selection-")
+            print(ANSI['fgbrown'] + " +---------------------------------------+" + ANSI['fgreset'])
+            print(' Select a religion for more info:')
+            print(ANSI['fgblue']+ " 1) " + ANSI['fgreset'] + religion_names[0])
+            print(ANSI['fgblue']+ " 2) " + ANSI['fgreset'] + religion_names[1])
+            print(ANSI['fgblue']+ " 3) " + ANSI['fgreset'] + religion_names[2])
+
+            confirm = input('-> ')
+            while confirm != '1' and confirm != '2' and confirm != '3' and confirm != '4':
+                print('Not an option, Try again.')
+                confirm = input('-> ') 
+            if confirm == '1':
+                pass
+
+            if confirm == '2':
+                pass
+
+
+        rmenu2()
 
 
 def worldgen():
@@ -203,9 +246,11 @@ def worldgen():
     input('-> ')
 
 
+def wandering():
+    pass
 
 # call funcs
-religionmenu()
+menu()
 #print(mountain)
 #worldgen()
 
