@@ -20,8 +20,8 @@ class player:
 
         self.buffsdebuffs = []
 
-        self.pos.x = 0 # Player position
-        self.pos.y = 0
+        self.posx = 0 # Player position
+        self.posy = 0
 
 curplayer = player()
 
