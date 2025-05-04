@@ -13,9 +13,9 @@ class player:
         self.role = ''
         self.religion = ''
 
-        self.hp = 0 # Health
-        self.sp = 0 # stamina
-        self.mp = 0 # mana
+        self.str = 0 # Strength
+        self.dex = 0 # Dexterity
+        self.int = 0 # Intelligence
         self.fp = 0 # faith
 
         self.buffsdebuffs = []
@@ -86,13 +86,13 @@ def menu_options():
 def speciesmenu():
     # Dictonary for species info 
     speciesdic = {
-        1: {'species': 'human', 'description': 'Adaptable and well-rounded.', 'stats': { 'hp' : 10, 'sp' : 10, 'mp' : 10
+        '1': {'species': 'human', 'description': 'Adaptable and well-rounded.', 'stats': { 'str' : 10, 'dex' : 10, 'int' : 10
 
         },},
-        2: {'species': 'elf', 'description': 'Magically gifted.', 'stats': { 'hp' : 7, 'sp' : 7, 'mp' : 15
+        '2': {'species': 'elf', 'description': 'Magically gifted.', 'stats': { 'str' : 7, 'dex' : 7, 'int' : 15
 
         },},
-        3: {'species': 'dwarf', 'description': 'Gifted with a strong constitution.', 'stats': { 'hp' : 15, 'sp' : 7, 'mp' : 7
+        '3': {'species': 'dwarf', 'description': 'Gifted with a strong constitution.', 'stats': { 'str' : 15, 'dex' : 7, 'int' : 7
 
         },}
     }
@@ -106,8 +106,8 @@ def speciesmenu():
     print(ANSI['fggreen']+ " 3)" + ANSI['fgreset'] + " Dwarf")
     print(ANSI['fgbrown'] + " +---------------------------------------+" + ANSI['fgreset'])
     
-    # Selected Species
-    choice = int(input('-> '))
+    # Selected species
+    choice = input('-> ')
 
     if choice not in speciesdic:
         os.system('cls')
@@ -121,9 +121,9 @@ def speciesmenu():
         print(ANSI['fgbrown'] + " +---------------------------------------+" + ANSI['fgreset'])
         print(fspacing(speciesdic[choice]['description']) + " " + speciesdic[choice]['description'] + ' ' + fspacing(speciesdic[choice]['description']))
 
-        print(ANSI['fgred'] + " Health: " + ANSI['fgreset'] + str(speciesdic[choice]['stats']['hp']))
-        print(ANSI['fggreen'] + " Stamina: " + ANSI['fgreset'] + str(speciesdic[choice]['stats']['sp']))
-        print(ANSI['fgblue'] + " Mana: " + ANSI['fgreset'] + str(speciesdic[choice]['stats']['mp']))
+        print(ANSI['fgred'] + " Strength: " + ANSI['fgreset'] + str(speciesdic[choice]['stats']['str']))
+        print(ANSI['fggreen'] + " Dexterity: " + ANSI['fgreset'] + str(speciesdic[choice]['stats']['dex']))
+        print(ANSI['fgblue'] + " Intelligence: " + ANSI['fgreset'] + str(speciesdic[choice]['stats']['int']))
         print(fspacing(" Select species?") + " Select species?" + fspacing(" Select species?") )
         print(ANSI['fgbrown'] + " +---------------------------------------+" + ANSI['fgreset'])
         print(' 1) Yes 2) No')
@@ -135,9 +135,9 @@ def speciesmenu():
             confirm = input('-> ') # needs to be fixed to solve edgecase but it works well enough rn.
         if confirm == '1':
             curplayer.species = speciesdic[choice]['species']
-            curplayer.hp = speciesdic[choice]['stats']['hp']
-            curplayer.sp = speciesdic[choice]['stats']['sp']
-            curplayer.mp = speciesdic[choice]['stats']['mp']
+            curplayer.str = speciesdic[choice]['stats']['str']
+            curplayer.dex = speciesdic[choice]['stats']['dex']
+            curplayer.int = speciesdic[choice]['stats']['int']
             os.system('cls')
             print( speciesdic[choice]['species'] + ' Selected', end='')
             time.sleep(0.5)
@@ -193,7 +193,7 @@ def religionmenu():
             print(ANSI['fgbrown'] + " +---------------------------------------+" + ANSI['fgreset'])
             print('  ' + ANSI["fgreset"] + "- Enter " + ANSI['fgred'] + "[4]" + ANSI['fgreset'] + " to generate new religions -")
 
-            # There is a better way to do this that is not repetitive spaghetti but I am losing my mind and it works.
+            # There is a better way to do this that is not repetitive dexaghetti but I am losing my mind and it works.
             confirm = input('-> ')
             while confirm != '1' and confirm != '2' and confirm != '3' and confirm != '4':
                 print('Not an option, Try again.')
@@ -210,6 +210,7 @@ def religionmenu():
                     print('Not an option, Try again.')
                     confirm2 = input('-> ') 
                 if confirm2 == '1':
+                    curplayer.religion = religion_names[int(confirm) - 1]
                     os.system('cls')
                     print(religion_names[0] + ' Selected', end='')
                     time.sleep(0.5)
@@ -237,6 +238,7 @@ def religionmenu():
                     print('Not an option, Try again.')
                     confirm2 = input('-> ') 
                 if confirm2 == '1':
+                    curplayer.religion = religion_names[int(confirm) - 1]
                     os.system('cls')
                     print(religion_names[1] + ' Selected', end='')
                     time.sleep(0.5)
@@ -262,6 +264,7 @@ def religionmenu():
                     print('Not an option, Try again.')
                     confirm2 = input('-> ') 
                 if confirm2 == '1':
+                    curplayer.religion = religion_names[int(confirm) - 1]
                     os.system('cls')
                     print(religion_names[2] + ' Selected', end='')
                     time.sleep(0.5)
@@ -291,7 +294,9 @@ def charname():
 
     name = input(' Enter a Name: ')
     os.system('cls')
-    print(" Keep " + name + " as name?")
+    print(ANSI['fgbrown'] + " +---------------------------------------+" + ANSI['fgreset'])
+    print(fspacing(" Keep " + name + " as your name?") + " Keep " + name + " as your name?" + fspacing(" Keep " + name + " as your name?"))
+    print(ANSI['fgbrown'] + " +---------------------------------------+" + ANSI['fgreset'])
     print(' 1) Yes 2) No')
     confirm = input('-> ')
     while confirm != '1' and confirm != '2':
@@ -332,7 +337,7 @@ def gamestart():
         confirm = input('-> ') 
     if confirm == '1':
         os.system('cls')
-        print('Wander the path', end='')
+        print('World generating', end='')
         time.sleep(0.5)
         print('.', end='', flush=True)
         time.sleep(0.5)
@@ -340,8 +345,6 @@ def gamestart():
         time.sleep(0.5)
         print('.', end='', flush=True)
         time.sleep(0.5)
-        wandering()
-        
         wandering()
     if confirm == '2':
         os.system('cls')
@@ -359,6 +362,7 @@ def gamestart():
 
 def wandering():
     os.system('cls')
+    world()
 
 
 # cool func but not using rn.
@@ -403,6 +407,22 @@ def worldgen():
     input('-> ')
 
 
+def world():
+    # 8X8 matrix world map base
+    matrix = []
+    for i in range(8):
+        x = []
+        for k in range(8):
+            x.append(' ')
+        matrix.append(x)
+    # Turn matrix into str map 
+    for i in matrix: # Prints +---+---+---+---+---+---+---+---+
+        print('\n' + '+---' * 8 + '+')
+        for x in i:
+            # {:^3} formats value x into str 3 wide with char centered ^ prints | x | x | x | x | x | x | x | x |
+            print('|{:^3}'.format(x), end='')
+        print('|', end='')
+    print('\n' + '+---' * 8 + '+')
 
 
 # call funcs
