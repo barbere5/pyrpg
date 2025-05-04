@@ -20,7 +20,8 @@ class player:
 
         self.buffsdebuffs = []
 
-        self.pos = 'b2' # Player position
+        self.pos.x = 0 # Player position
+        self.pos.y = 0
 
 curplayer = player()
 
@@ -408,21 +409,32 @@ def worldgen():
 
 
 def world():
+
+    hill = ANSI['fgbrown']+ '∩' + ANSI['fgreset']
+    mountain = ANSI['fggrey'] + '▲' + ANSI['fgreset']
+    water = ANSI['fgblue']+ '≈' + ANSI['fgreset']
+    plains = ANSI['fggreen']+ '≡' + ANSI['fgreset']
+    town =  ANSI['fgbrown']+ '♦' + ANSI['fgreset']
+
+    mapkey = [hill, mountain, plains, water]
     # 8X8 matrix world map base
     matrix = []
     for i in range(8):
         x = []
         for k in range(8):
-            x.append(' ')
+            x.append(str(random.randint(0,3)))
         matrix.append(x)
     # Turn matrix into str map 
     for i in matrix: # Prints +---+---+---+---+---+---+---+---+
         print('\n' + '+---' * 8 + '+')
         for x in i:
-            # {:^3} formats value x into str 3 wide with char centered ^ prints | x | x | x | x | x | x | x | x |
-            print('|{:^3}'.format(x), end='')
+            print('| {} '.format(mapkey[int(x)]), end='')
         print('|', end='')
     print('\n' + '+---' * 8 + '+')
+    print(ANSI['fgbrown'] + "+-------------------------------+" + ANSI['fgreset'])
+    print(' Map Key: Hills = {} Mountains = {} \n Plains = {} Water = {}'.format(mapkey[0], mapkey[1], mapkey[2], mapkey[3]))
+    print(ANSI['fgbrown'] + "+-------------------------------+" + ANSI['fgreset'])
+    input('-> ')
 
 
 # call funcs
