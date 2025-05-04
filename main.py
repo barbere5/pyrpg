@@ -4,7 +4,6 @@ import textwrap
 import time
 import math
 import os
-import keyboard
 
 
 class player:
@@ -42,7 +41,7 @@ ANSI = {
 }
 
 def menu():
-    os.system('cls') # 'cls' instead of 'clear' for windows terminal 'clear' is for linux(probally mac also).
+    os.system('cls') # 'cls' instead of 'cls' for windows terminal 'cls' is for linux(probally mac also).
     print(ANSI['fgbrown'] + " __________________________________________") # "" instead of '' for str because open ' in str.
     print("|" + ANSI["fgreset"] + " _____ _            ____       _   _      " + ANSI['fgbrown'] + "|")
     print("|" + ANSI["fgreset"] + "|_   _| |__   ___  |  _ \ __ _| |_| |__   " + ANSI['fgbrown'] + "|")
@@ -105,6 +104,7 @@ def speciesmenu():
     print(ANSI['fggreen']+ " 1)" + ANSI['fgreset'] + " Human")
     print(ANSI['fggreen']+ " 2)" + ANSI['fgreset'] + " Elf")
     print(ANSI['fggreen']+ " 3)" + ANSI['fgreset'] + " Dwarf")
+    print(ANSI['fgbrown'] + " +---------------------------------------+" + ANSI['fgreset'])
     
     # Selected Species
     choice = int(input('-> '))
@@ -125,6 +125,7 @@ def speciesmenu():
         print(ANSI['fggreen'] + " Stamina: " + ANSI['fgreset'] + str(speciesdic[choice]['stats']['sp']))
         print(ANSI['fgblue'] + " Mana: " + ANSI['fgreset'] + str(speciesdic[choice]['stats']['mp']))
         print(fspacing(" Select species?") + " Select species?" + fspacing(" Select species?") )
+        print(ANSI['fgbrown'] + " +---------------------------------------+" + ANSI['fgreset'])
         print(' 1) Yes 2) No')
 
         # It works don't touch :o
@@ -150,28 +151,27 @@ def speciesmenu():
 
         if confirm == '2':
             os.system('cls')
-            print("returning to selection menu.")
             speciesmenu() #recurse
 
 
 def religionmenu():
         
-        descript = ['adorable', 'adventurous', 'aggressive', 'Formless', 'alert', 'alive', 'amused', 'angry',
-    'annoyed', 'annoying', 'anxious', 'arrogant', 'ashamed', 'Rotting', 'awful',
-    'bad', 'Blind', 'black', 'bloody', 'blue', 'blue-eyed', 'blushing',
-    'bored', 'brave', 'breakable', 'bright', 'busy', 'calm', 'careful', 'cautious',
-    'charming', 'cheerful', 'Corrupt', 'clear', 'clever', 'cloudy', 'clumsy', 'colorful', 'combative',
-    'comfortable', 'concerned', 'condemned', 'confused', 'Bloody', 'courageous', 'crazy',
-    'Dead', 'cruel', 'curious', 'dangerous', 'dark', 'dead', 'defeated',
-    'defiant', 'delightful', 'depressed', 'determined', 'different', 'difficult', 'disgusted',
-    'Bloody', 'disturbed', 'dizzy', 'doubtful', 'dull', 'baleful', 'cursed', 'Skinless']
+        descript = ['Nameless', 'Infernal', 'Stygian', 'Abyssal', 'Adorable', 'Aggressive', 'Formless', 'Alert', 'Alive', 'Amused', 'Angry',
+ 'Annoyed', 'Annoying', 'Anxious', 'Arrogant', 'Ashamed', 'Rotting', 'Awful', 'Blind', 'Black', 'Bloody', 'Blue', 'Blue-Eyed', 'Blushing',
+ 'Bored', 'Brave', 'Bright', 'Busy', 'Calm', 'Careful', 'Cautious',
+ 'Charming', 'Cheerful', 'Corrupt', 'Clever', 'Cloudy', 'Clumsy', 'Colorful', 'Combative',
+ 'Comfortable', 'Concerned', 'Condemned', 'Confused', 'Bloody', 'Courageous',
+ 'Dead', 'Cruel', 'Curious', 'Dangerous', 'Dark', 'Dead', 'Defeated',
+ 'Defiant', 'Delightful', 'Depressed', 'Determined', 'Different', 'Difficult', 'Disgusted',
+ 'Bloody', 'Disturbed', 'Dizzy', 'Doubtful', 'Dull', 'Baleful', 'Cursed', 'Skinless', 'Barbed', 'Ominous', 'Blood-Black']
+
         
         
         
-        noun = ['Egg', 'Beast', 'Star', 'Sun', 'Moon', 'Mountain' ]
-        shrine_features = ['barbed', 'ominous', '']
-        shrine_materials = ["copper", "wood", "iron", "black", "white", "marble", "stone", "blue", "azure", "glass", "dirt"]
-        shrine_forms = ["obelisk", "menhir", "monolith", "dolmen"]
+        noun = ['Egg', 'Beast', 'Star', 'Sun', 'Moon', 'Mountain', 'Storm', 'Planet']
+        shrine_features = ['Barbed', 'Ominous', '']
+        shrine_materials = ['Copper', 'Wood', 'Iron', 'Black', 'White', 'Marble', 'Stone', 'Blue', 'Azure', 'Glass', 'Dirt']
+        shrine_forms = ['Obelisk', 'Menhir', 'Monolith', 'Dolmen']
 
         religion_names = []
         shrine_list = []
@@ -186,25 +186,182 @@ def religionmenu():
             print(ANSI['fgbrown'] + " +---------------------------------------+" + ANSI['fgreset'])
             print("           -religion selection-")
             print(ANSI['fgbrown'] + " +---------------------------------------+" + ANSI['fgreset'])
-            print(' Select a religion for more info:')
+            print(' Select a religion:')
             print(ANSI['fgblue']+ " 1) " + ANSI['fgreset'] + religion_names[0])
             print(ANSI['fgblue']+ " 2) " + ANSI['fgreset'] + religion_names[1])
             print(ANSI['fgblue']+ " 3) " + ANSI['fgreset'] + religion_names[2])
+            print(ANSI['fgbrown'] + " +---------------------------------------+" + ANSI['fgreset'])
+            print('  ' + ANSI["fgreset"] + "- Enter " + ANSI['fgred'] + "[4]" + ANSI['fgreset'] + " to generate new religions -")
 
+            # There is a better way to do this that is not repetitive spaghetti but I am losing my mind and it works.
             confirm = input('-> ')
             while confirm != '1' and confirm != '2' and confirm != '3' and confirm != '4':
                 print('Not an option, Try again.')
                 confirm = input('-> ') 
             if confirm == '1':
-                pass
+                os.system('cls')
+                print(ANSI['fgbrown'] + " +---------------------------------------+" + ANSI['fgreset'])
+                print(fspacing('select ' + religion_names[0] + '?') + 'select ' + religion_names[0] + '?' + fspacing('select ' + religion_names[0] + '?'))
+                print(ANSI['fgbrown'] + " +---------------------------------------+" + ANSI['fgreset'])
+                print(' 1) Yes 2) No')
+                confirm2 = input('-> ')
+
+                while confirm2 != '1' and confirm2 != '2':
+                    print('Not an option, Try again.')
+                    confirm2 = input('-> ') 
+                if confirm2 == '1':
+                    os.system('cls')
+                    print(religion_names[0] + ' Selected', end='')
+                    time.sleep(0.5)
+                    print('.', end='', flush=True)
+                    time.sleep(0.5)
+                    print('.', end='', flush=True)
+                    time.sleep(0.5)
+                    print('.', end='', flush=True)
+                    time.sleep(0.5)
+                    charname()
+                elif confirm2 == '2':
+                    rmenu2()
+
+                
 
             if confirm == '2':
-                pass
+                os.system('cls')
+                print(ANSI['fgbrown'] + " +---------------------------------------+" + ANSI['fgreset'])
+                print(fspacing('select ' + religion_names[1] + '?') + 'select ' + religion_names[1] + '?' + fspacing('select ' + religion_names[1] + '?'))
+                print(ANSI['fgbrown'] + " +---------------------------------------+" + ANSI['fgreset'])
+                print(' 1) Yes 2) No')
+                confirm2 = input('-> ')
+
+                while confirm2 != '1' and confirm2 != '2':
+                    print('Not an option, Try again.')
+                    confirm2 = input('-> ') 
+                if confirm2 == '1':
+                    os.system('cls')
+                    print(religion_names[1] + ' Selected', end='')
+                    time.sleep(0.5)
+                    print('.', end='', flush=True)
+                    time.sleep(0.5)
+                    print('.', end='', flush=True)
+                    time.sleep(0.5)
+                    print('.', end='', flush=True)
+                    time.sleep(0.5)
+                    charname()
+                elif confirm2 == '2':
+                    rmenu2()
+
+            if confirm == '3':
+                os.system('cls')
+                print(ANSI['fgbrown'] + " +---------------------------------------+" + ANSI['fgreset'])
+                print(fspacing('select ' + religion_names[2] + '?') + 'select ' + religion_names[2] + '?' + fspacing('select ' + religion_names[2] + '?'))
+                print(ANSI['fgbrown'] + " +---------------------------------------+" + ANSI['fgreset'])
+                print(' 1) Yes 2) No')
+                confirm2 = input('-> ')
+
+                while confirm2 != '1' and confirm2 != '2':
+                    print('Not an option, Try again.')
+                    confirm2 = input('-> ') 
+                if confirm2 == '1':
+                    os.system('cls')
+                    print(religion_names[2] + ' Selected', end='')
+                    time.sleep(0.5)
+                    print('.', end='', flush=True)
+                    time.sleep(0.5)
+                    print('.', end='', flush=True)
+                    time.sleep(0.5)
+                    print('.', end='', flush=True)
+                    time.sleep(0.5)
+                    charname()
+                elif confirm2 == '2':
+                    rmenu2()
+                
+
+            if confirm == '4':
+                religionmenu() # recurse
 
 
         rmenu2()
 
 
+def charname():
+    os.system('cls')
+    print(ANSI['fgbrown'] + " +---------------------------------------+" + ANSI['fgreset'])
+    print(fspacing('-Character Name-') + "-Character Name-" + fspacing('-Character Name-'))
+    print(ANSI['fgbrown'] + " +---------------------------------------+" + ANSI['fgreset'])
+
+    name = input(' Enter a Name: ')
+    os.system('cls')
+    print(" Keep " + name + " as name?")
+    print(' 1) Yes 2) No')
+    confirm = input('-> ')
+    while confirm != '1' and confirm != '2':
+        print('Not an option, Try again.')
+        confirm = input('-> ') 
+    if confirm == '1':
+        os.system('cls')
+        curplayer.name = name
+        print(name + ' Selected', end='')
+        time.sleep(0.5)
+        print('.', end='', flush=True)
+        time.sleep(0.5)
+        print('.', end='', flush=True)
+        time.sleep(0.5)
+        print('.', end='', flush=True)
+        time.sleep(0.5)
+        gamestart()
+
+    if confirm == '2':
+        charname()
+
+
+def gamestart():
+        
+
+    os.system('cls')
+    print(ANSI['fgbrown'] + " +---------------------------------------+" + ANSI['fgreset'])
+    print("               -Character-")
+    print(ANSI['fgbrown'] + " +---------------------------------------+" + ANSI['fgreset'])
+    print(" The " + ANSI['fggreen'] + curplayer.species + ANSI['fgreset'] + " " + curplayer.name)
+    print(" follower of " + ANSI['fgblue'] + curplayer.religion + ANSI['fgreset']+ '.')
+    print(ANSI['fgbrown'] + " +---------------------------------------+" + ANSI['fgreset'])
+    print(" Confirm Character?")
+    print(' 1) Yes 2) No')
+    confirm = input('-> ')
+    while confirm != '1' and confirm != '2':
+        print('Not an option, Try again.')
+        confirm = input('-> ') 
+    if confirm == '1':
+        os.system('cls')
+        print('Wander the path', end='')
+        time.sleep(0.5)
+        print('.', end='', flush=True)
+        time.sleep(0.5)
+        print('.', end='', flush=True)
+        time.sleep(0.5)
+        print('.', end='', flush=True)
+        time.sleep(0.5)
+        wandering()
+        
+        wandering()
+    if confirm == '2':
+        os.system('cls')
+        print('Returning to Character creation menu', end='')
+        time.sleep(0.5)
+        print('.', end='', flush=True)
+        time.sleep(0.5)
+        print('.', end='', flush=True)
+        time.sleep(0.5)
+        print('.', end='', flush=True)
+        time.sleep(0.5)
+        os.system('cls')
+        speciesmenu()
+
+
+def wandering():
+    os.system('cls')
+
+
+# cool func but not using rn.
 def worldgen():
     print('How big do you want your world to be?')
     print('1) Small[8x8] 2) Medium[16x16] 3) Large[32x32]')
@@ -246,11 +403,7 @@ def worldgen():
     input('-> ')
 
 
-def wandering():
-    pass
+
 
 # call funcs
 menu()
-#print(mountain)
-#worldgen()
-
