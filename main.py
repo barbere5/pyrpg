@@ -418,6 +418,7 @@ def world():
 
     mapkey = [hill, mountain, plains, water]
     # 8X8 matrix world map base
+    global matrix
     matrix = []
     for i in range(8):
         x = []
@@ -425,6 +426,8 @@ def world():
             x.append(str(random.randint(0,3)))
         matrix.append(x)
     # Turn matrix into str map 
+    
+def visualizemap():
     for i in matrix: # Prints +---+---+---+---+---+---+---+---+
         print('\n' + '+---' * 8 + '+')
         for x in i:
@@ -434,8 +437,7 @@ def world():
     print(ANSI['fgbrown'] + "+-------------------------------+" + ANSI['fgreset'])
     print(' Map Key: Hills = {} Mountains = {} \n Plains = {} Water = {}'.format(mapkey[0], mapkey[1], mapkey[2], mapkey[3]))
     print(ANSI['fgbrown'] + "+-------------------------------+" + ANSI['fgreset'])
-    input('-> ')
-
+visualizemap()
 
 # call funcs
 menu()
