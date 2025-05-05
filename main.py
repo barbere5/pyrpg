@@ -207,7 +207,7 @@ def speciesmenu():
 
 def religionmenu():
         
-        descript = ['Fell', 'Alive', 'Writhing', 'Disturbed', 'Dead', 'Defiant', 'Festering', 'Barbed',
+        descript = ['Fell', 'Alive', 'Writhing', 'Disturbed', 'Defiant', 'Festering', 'Barbed',
  'Corrupted', 'Cruel', 'Putrid', 'Dark', 'Maddening', 'Colorful', 'Skinless',
  'Cursed', 'Bleeding', 'Nameless', 'Rotting', 'Black', 'Baleful', 'Abyssal',
  'Dead', 'Molten', 'Blighted', 'Stygian', 'Blood-Black', 'Blind', 'Unseen',
@@ -384,6 +384,7 @@ def gamestart():
         confirm = input('-> ') 
     if confirm == '1':
         os.system('cls')
+        print('Character confirmed!\n')
         print('World generating', end='')
         time.sleep(0.5)
         print('.', end='', flush=True)
