@@ -443,6 +443,7 @@ def visualizemap():
     print(ANSI['fgbrown'] + "+-------------------------------+" + ANSI['fgreset'])
     print('Hills = [{}] Mountains = [{}] \n Plains = [{}] Water = [{}]'.format(mapkey[0], mapkey[1], mapkey[2], mapkey[3]))
     print(ANSI['fgbrown'] + "+-------------------------------+" + ANSI['fgreset'])
+    input('')
 
 
 
