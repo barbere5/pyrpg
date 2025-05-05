@@ -393,7 +393,7 @@ def gamestart():
         time.sleep(0.5)
         print('.', end='', flush=True)
         time.sleep(0.5)
-        gameloop()
+        wandering()
     if confirm == '2':
         os.system('cls')
         print('Returning to Character creation menu', end='')
@@ -441,7 +441,7 @@ def visualizemap():
         print('|', end='')
     print('\n' + '+---' * 8 + '+')
     print(ANSI['fgbrown'] + "+-------------------------------+" + ANSI['fgreset'])
-    print(' Map Key: Hills = {} Mountains = {} \n Plains = {} Water = {}'.format(mapkey[0], mapkey[1], mapkey[2], mapkey[3]))
+    print('Hills = [{}] Mountains = [{}] \n Plains = [{}] Water = [{}]'.format(mapkey[0], mapkey[1], mapkey[2], mapkey[3]))
     print(ANSI['fgbrown'] + "+-------------------------------+" + ANSI['fgreset'])
 
 
