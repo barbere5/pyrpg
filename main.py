@@ -364,6 +364,7 @@ def gamestart():
 def wandering():
     os.system('cls')
     world()
+    visualizemap()
 
 
 # cool func but not using rn.
@@ -409,7 +410,17 @@ def worldgen():
 
 
 def world():
+    # 8X8 matrix world map base
+    matrix = []
+    for i in range(8):
+        x = []
+        for k in range(8):
+            x.append(str(random.randint(0,3)))
+        matrix.append(x)
+    return matrix
+    # Turn matrix into str map 
 
+def visualizemap():
     hill = ANSI['fgbrown']+ '∩' + ANSI['fgreset']
     mountain = ANSI['fggrey'] + '▲' + ANSI['fgreset']
     water = ANSI['fgblue']+ '≈' + ANSI['fgreset']
@@ -417,18 +428,7 @@ def world():
     town =  ANSI['fgbrown']+ '♦' + ANSI['fgreset']
 
     mapkey = [hill, mountain, plains, water]
-    # 8X8 matrix world map base
-    global matrix
-    matrix = []
-    for i in range(8):
-        x = []
-        for k in range(8):
-            x.append(str(random.randint(0,3)))
-        matrix.append(x)
-    # Turn matrix into str map 
-    
-def visualizemap():
-    for i in matrix: # Prints +---+---+---+---+---+---+---+---+
+    for i in world(): # Prints +---+---+---+---+---+---+---+---+
         print('\n' + '+---' * 8 + '+')
         for x in i:
             print('| {} '.format(mapkey[int(x)]), end='')
