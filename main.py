@@ -5,31 +5,6 @@ import time
 import math
 import os
 
-
-class player:
-    def __init__(self):
-        self.name = ''
-        self.species = ''
-        self.role = ''
-        self.religion = ''
-
-        self.str = 0 # Strength
-        self.dex = 0 # Dexterity
-        self.int = 0 # Intelligence
-        self.fp = 0 # faith
-
-        self.buffsdebuffs = []
-
-        self.posx = 0 # Player position
-        self.posy = 0
-
-curplayer = player()
-
-# func for centering text
-def fspacing(s):
-    return " " * (int((41 - len(s)) / 2)) # spacing to center species name
-
-
 # Dict of ANSI escape codes for 24bit color
 # https://stackoverflow.com/questions/4842424/list-of-ansi-color-escape-sequences more info
 ANSI = { 
@@ -40,6 +15,62 @@ ANSI = {
     'fggreen' : '\033[38;2;0;255;0m',
     'fgred' : '\033[38;2;255;0;0m'
 }
+
+class HealthBar:
+    s_remaining: str = '█'
+    s_lost: str = '_'
+    sides: str = '|'
+    colors: dict = ANSI
+
+    def __init__(self, entity, color: str= 'fgred', length: int = 11):
+        self.entity = entity
+        self.length = length
+        self.maxval = entity.healthmax
+        self.curval = entity.healthcur
+        self.color = ANSI.get(color)
+
+    def update(self) -> None:
+        self.current_value = self.entity.hp
+
+    def draw(self) -> None:
+        remainingbars = round(self.curval / self.maxval * self.length)
+        lostbars = self.length - remainingbars
+        print(f'Health: {self.entity.healthcur}/{self.entity.healthmax}')
+        print(f'{self.sides}'
+              f'{self.color}'
+              f'{remainingbars * self.s_remaining}'
+              f'{lostbars * self.s_lost}'
+              f'{ANSI["fgreset"]}'
+              f'{self.sides}')
+
+
+class player:
+    def __init__(self):
+        self.name = ''
+        self.species = ''
+        self.religion = ''
+
+        self.str = 0 # Strength
+        self.dex = 0 # Dexterity
+        self.int = 0 # Intelligence
+        self.fp = 0 # faith
+
+        self.healthmax = 50
+        self.healthcur = 50
+
+
+        self.healthbar = HealthBar(self, color='fgred')
+
+
+        self.buffsdebuffs = []
+
+        self.pl_pos = 0 # Player position
+
+curplayer = player()
+
+# func for centering text
+def fspacing(s):
+    return " " * (int((41 - len(s)) / 2)) # spacing to center species name
 
 def menu():
     os.system('cls') # 'cls' instead of 'cls' for windows terminal 'cls' is for linux(probally mac also).
@@ -146,7 +177,7 @@ def speciesmenu():
         print(ANSI['fgbrown'] + " +---------------------------------------+" + ANSI['fgreset'])
         print("           -Character Creation-")
         print(ANSI['fgbrown'] + " +---------------------------------------+" + ANSI['fgreset'])
-        print(' Select a species for more info:')
+        print(fspacing('Select a species for more info:') + 'Select a species for more info:' + fspacing('Select a species for more info:'))
         print(ANSI['fggreen']+ " 1)" + ANSI['fgreset'] + curchoices['1']['species'])
         print(ANSI['fggreen']+ " 2)" + ANSI['fgreset'] + curchoices['2']['species'])
         print(ANSI['fggreen']+ " 3)" + ANSI['fgreset'] + curchoices['3']['species'])
@@ -188,6 +219,8 @@ def speciesmenu():
                 curplayer.str = curchoices[choice]['stats']['str']
                 curplayer.dex = curchoices[choice]['stats']['dex']
                 curplayer.int = curchoices[choice]['stats']['int']
+                curplayer.healthmax = curchoices[choice]['stats']['str'] * 5
+                curplayer.healthcur = curchoices[choice]['stats']['str'] * 5
                 os.system('cls')
                 print( curchoices[choice]['species'] + ' Selected', end='')
                 time.sleep(0.5)
@@ -231,9 +264,9 @@ def religionmenu():
         def rmenu2():    
             os.system('cls')
             print(ANSI['fgbrown'] + " +---------------------------------------+" + ANSI['fgreset'])
-            print("           -religion selection-")
+            print("           -Deity selection-")
             print(ANSI['fgbrown'] + " +---------------------------------------+" + ANSI['fgreset'])
-            print(' Select a religion:')
+            print(fspacing(' Select a Deity:') + ' Select a Deity:' + fspacing(' Select a Deity:'))
             print(ANSI['fgblue']+ " 1) " + ANSI['fgreset'] + religion_names[0])
             print(ANSI['fgblue']+ " 2) " + ANSI['fgreset'] + religion_names[1])
             print(ANSI['fgblue']+ " 3) " + ANSI['fgreset'] + religion_names[2])
@@ -407,14 +440,11 @@ def gamestart():
         os.system('cls')
         speciesmenu()
 
-
-def gameloop():
-    pass
-
 def wandering():
     os.system('cls')
     world()
     visualizemap()
+    curplayer.healthbar.draw()
 
 def world():
     # 8X8 matrix world map base
@@ -443,7 +473,6 @@ def visualizemap():
     print(ANSI['fgbrown'] + "+-------------------------------+" + ANSI['fgreset'])
     print('Hills = [{}] Mountains = [{}] \n Plains = [{}] Water = [{}]'.format(mapkey[0], mapkey[1], mapkey[2], mapkey[3]))
     print(ANSI['fgbrown'] + "+-------------------------------+" + ANSI['fgreset'])
-    input('')
 
 
 
