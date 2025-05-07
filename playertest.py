@@ -8,7 +8,9 @@ colors = {
     'fggrey' : '\033[38;2;131;131;131m',
     'fgblue' : '\033[38;2;0;0;255m',
     'fggreen' : '\033[38;2;0;255;0m',
-    'fgred' : '\033[38;2;255;0;0m'
+    'fgred' : '\033[38;2;255;0;0m',
+    'fglightblue' : '\033[38;2;152;245;249m'
+
 }
 
 def spacing(sentence: str):
@@ -20,7 +22,7 @@ class StatusBars:
     sides: str = '|'
     colors: dict = colors
 
-    def __init__(self, entity, health_color: str= 'fgred', mana_color: str= 'fgblue', prayer_color: str= 'fggreen', length: int = 15):
+    def __init__(self, entity, health_color: str= 'fgred', mana_color: str= 'fgblue', prayer_color: str= 'fglightblue', length: int = 15):
         self.entity = entity
         self.length = length
 
@@ -106,6 +108,6 @@ character.stat_bars.draw()
 print("Updated status bars:")
 character.current_health -= 5
 character.current_mana -= 50
-character.current_prayer - 0
+character.current_prayer = 0
 character.stat_bars.update()
 character.stat_bars.draw()
