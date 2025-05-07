@@ -66,7 +66,7 @@ class player:
 
         self.pl_pos = 0 # Player position
 
-curplayer = player()
+curplayer: player = player()
 
 # func for centering text
 def fspacing(s):
@@ -240,7 +240,7 @@ def speciesmenu():
 
 def religionmenu():
         
-        descript = ['Fell', 'Alive', 'Writhing', 'Disturbed', 'Defiant', 'Festering', 'Barbed',
+        descript = ['Fell', 'Writhing', 'Disturbed', 'Defiant', 'Festering', 'Barbed',
  'Corrupted', 'Cruel', 'Putrid', 'Dark', 'Maddening', 'Colorful', 'Skinless',
  'Cursed', 'Bleeding', 'Nameless', 'Rotting', 'Black', 'Baleful', 'Abyssal',
  'Dead', 'Molten', 'Blighted', 'Stygian', 'Blood-Black', 'Blind', 'Unseen',
@@ -248,7 +248,7 @@ def religionmenu():
         
         
         
-        noun = ['Monolith', 'Obelisk', 'Beast', 'Star', 'Sun', 'Moon', 'Mountain', 'Storm', 'Planet', 'Serpent', 'Radiance', 'Hunger', 'Wyrm', 'Leviathan', 'Eye']
+        noun = ['Monolith', 'Obelisk', 'Beast', 'Star', 'Sun', 'Moon', 'Mountain', 'Storm', 'Planet', 'Serpent', 'Radiance', 'Hunger', 'Wyrm', 'Leviathan', 'Eye', 'Flame']
         shrine_features = ['Barbed', 'Ominous', '']
         shrine_materials = ['Copper', 'Wood', 'Iron', 'Black', 'White', 'Marble', 'Stone', 'Blue', 'Azure', 'Glass', 'Dirt']
         shrine_forms = ['Obelisk', 'Menhir', 'Monolith', 'Dolmen']
